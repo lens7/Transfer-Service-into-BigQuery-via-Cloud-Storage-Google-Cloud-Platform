@@ -1,4 +1,4 @@
-# Transfer-Service-into-BigQuery-via-Cloud-Storage-"Google-Cloud-Platform and Terraform"
+# Transfer-Service-into-BigQuery-via-Cloud-Storage-"Google Cloud Platform and Terraform"
 Here we have automated the entire process of Creation of Google Cloud Storage buckets to store that that we are transferring via various transfer services, as of now Transfer from other Google cloud Storage buckets and public http/https links are supported, finally all this data is being processed into BigQuery for observations and Analysis.
 
 All this automation involves the concept for "Terraform" and GCP insights
