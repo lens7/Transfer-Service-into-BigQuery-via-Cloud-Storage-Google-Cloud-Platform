@@ -1,5 +1,5 @@
 resource "google_bigquery_dataset" "default" {
-  dataset_id                  = "btable1"
+  dataset_id                  = "firstBQTable"
   friendly_name               = "test"
   description                 = "This is a test description"
   location                    = "EU"
@@ -9,16 +9,19 @@ resource "google_bigquery_dataset" "default" {
     env = "default"
   }
 }
+# we are building infrastructure here for BigQuery Dataset and table, this steps takes 2-3 secs while automating the process
 
 resource "google_bigquery_table" "default" {
   dataset_id = google_bigquery_dataset.default.dataset_id
-  table_id   = "table3"
+  table_id   = "table1"
 
   labels = {
     env = "default"
   }
 
 }
+# we are building infrastructure here for Table in BQ Dataset, here we can also provide schema for the Databases we wish to enter in this table
+# for general purpose and effectiveness we won't use schema as we can autodetect it while transferring data
 
 resource "google_storage_bucket" "ingsid2" {
   name          = "ingsid2"
@@ -27,22 +30,24 @@ resource "google_storage_bucket" "ingsid2" {
   force_destroy = true
 }
 
+# we are building infrastructure here for Cloud Storage Bucket, this steps takes 2-3 secs while automating the process
+
 resource "google_storage_bucket_iam_member" "edit1" {
   bucket = "${google_storage_bucket.ingsid2.name}"
   role = "roles/storage.admin"
-  member = "user:smittalgcp@gmail.com"
+  member = "user:example@gmail.com"
   depends_on = [google_storage_bucket.ingsid2]
 }
 resource "google_storage_bucket_iam_member" "edit2" {
   bucket = "${google_storage_bucket.ingsid2.name}"
   role = "roles/storage.legacyBucketWriter"
-  member = "user:smittalgcp@gmail.com"
+  member = "user:example@gmail.com"
   depends_on = [google_storage_bucket_iam_member.edit1]
 }
 resource "google_storage_bucket_iam_member" "edit3" {
   bucket = "${google_storage_bucket.ingsid2.name}"
   role = "roles/storage.objectAdmin"
-  member = "user:smittalgcp@gmail.com"
+  member = "user:example@gmail.com"
   depends_on = [google_storage_bucket_iam_member.edit2]
 }
 
